@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a work in progress. There are multiple issues that need to be addressed and general code tidy up.
+This project is a work in progress original started as Flutter v2 but having only worked with v1 and limited time I reverted back to v1. There are multiple issues that need to be addressed and general code tidy up.
 
 ONLY TESTED ON ANDROID DEVICE
 
@@ -25,3 +25,7 @@ EDIT, DELETE buttons have yet to be implemented
 Assets - Assets haven't been intergrated fully as recommended for Android and IOS devices.
 
 APK file can be found under 'build>app>outputs>flutter-apk> app.apk'
+
+If the app doesn't build try running 'flutter clean' to remove all the build files then 'flutter packages get'
+
+Another TODO is add a gitIgnore file so that the build files are not pushed up to the branch.
