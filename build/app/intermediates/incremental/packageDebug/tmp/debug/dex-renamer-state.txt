@@ -1,0 +1,4 @@
+#Tue Jul 20 00:58:37 BST 2021
+base.0=/Users/lkabukoba/Documents/Programming/simons_sweet_shop_challenge/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

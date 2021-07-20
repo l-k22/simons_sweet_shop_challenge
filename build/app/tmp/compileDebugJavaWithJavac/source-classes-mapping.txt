@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/example/simons_sweet_shop_challenge/BuildConfig.java
+ com.example.simons_sweet_shop_challenge.BuildConfig
