@@ -4,15 +4,15 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a work in progress. There are multiple issues that need address and general code tidy up.
+This project is a work in progress. There are multiple issues that need to be addressed and general code tidy up.
 
 ONLY TESTED ON ANDROID DEVICE
 
-I took this challenge as an opportunity to learn Bloc state management pattern as it was mentioned as being used in the company's own app. I haven't quite got to grips with it but it seems very powerful.
+I took this challenge as an opportunity to learn Bloc state management pattern as it was mentioned as being used in the company's own app. My previous apps all used MVP pattern, I haven't quite got to grips with Bloc but it seems very powerful.
 
-Unit Test partially written - The only unit test written is for the algorithm in your terminal run 'flutter test test'.  Test are missing their comparison to their expected outcome.
+Unit Test partially written - The only unit test written is for the algorithm in your terminal run 'flutter test test'.  Test are missing their comparison to their expected outcome. Unit tests for button presses are next on the list of things to do.
 
-Calculation Algorithm has been through a few re-writes but it can still be optimised. The final method [cartCleanUp] needs reworking, Subset Sum solution is required.
+Calculation Algorithm has been through a few re-writes but it can still be optimised. The final method 'cartCleanUp' needs reworking, Subset Sum solution is required.
 
 StoreFront - HomeScreen - missing background image, carousel isn't full implemented it use placeholder array to display images that should be pulled from the database. Same with the decription and sweet title but these are located in the database.
 
@@ -23,3 +23,5 @@ Backend - AdminView - I have hidden a 'Load Mock Data' button in a drawer that c
 EDIT, DELETE buttons have yet to be implemented
 
 Assets - Assets haven't been intergrated fully as recommended for Android and IOS devices.
+
+APK file can be found under 'build>app>outputs>flutter-apk> app.apk'
