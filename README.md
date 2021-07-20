@@ -24,8 +24,8 @@ EDIT, DELETE buttons have yet to be implemented
 
 Assets - Assets haven't been intergrated fully as recommended for Android and IOS devices.
 
-APK file can be found under 'build>app>outputs>flutter-apk> app.apk'
+APK file can be found in the route of this repo '/app.apk'
 
-If the app doesn't build try running 'flutter clean' to remove all the build files then 'flutter packages get'
+If the app doesn't build try running 'flutter clean' to remove all the build files (if there are any) then 'flutter pub get'
 
 Another TODO is add a gitIgnore file so that the build files are not pushed up to the branch.
