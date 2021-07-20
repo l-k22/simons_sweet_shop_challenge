@@ -16,7 +16,7 @@ Calculation Algorithm has been through a few re-writes but it can still be optim
 
 StoreFront - HomeScreen - missing background image, carousel isn't full implemented it use placeholder array to display images that should be pulled from the database. Same with the decription and sweet title but these are located in the database.
 
-Inputting a order amount and pressing 'Add to Cart' will send you to the basket however I have not finished model and database mapping to display the orders so no orders will be visible. You can however see the alogrithm work in the terminal.
+Inputting a order amount and pressing 'Add to Cart' will send you to the basket however I have not finished model and database mapping to display the orders so no orders will be visible. You can however see the alogrithm work in the debug console.
 
 Backend - AdminView - I have hidden a 'Load Mock Data' button in a drawer that can only accessed from this view. There an odd glitch I haven't figured out the cause of yet, if you press the Load Mock Data Button only 5000 packs appears however if you leave the page and re-enter the remainder of the list is populated.
 
