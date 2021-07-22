@@ -148,7 +148,7 @@ class PackCalculator {
 
         try {
           var db = DatabaseHelper();
-          OrderModel order = OrderModel(amount: originalAmount, packs: packMap);
+          OrderModel order = OrderModel(amount: originalAmount, packs: '$packMap');
           print('O R D E R  $order');
           await db.addOrderToCart(order);
         } catch (e) {

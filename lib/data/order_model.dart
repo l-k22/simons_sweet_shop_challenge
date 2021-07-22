@@ -11,7 +11,7 @@
 
 class OrderModel {
   int? id, amount;
-  Map<int, int>? packs;
+  String? packs;
 
   OrderModel({this.id, required this.amount, required this.packs});
 
@@ -22,8 +22,8 @@ class OrderModel {
   OrderModel.fromMap(Map map) {
     id = map["id"] as int;
     amount = map["amount"] as int;
-    
-    packs = map["packs"] as Map<int, int>; // blocker need to convert non json string into a map
+
+    packs = map["packs"] as String; // blocker need to convert non json string into a map
   }
 
   @override

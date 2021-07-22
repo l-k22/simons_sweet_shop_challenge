@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:simons_sweet_shop_challenge/bloc/sss_bloc.dart';
 import 'package:simons_sweet_shop_challenge/data/constant_data.dart' as cd;
@@ -58,6 +56,7 @@ class _ShoppingCartState extends State<ShoppingCartView> {
                 return ListView.builder(
                     itemCount: snapshot.data?.length,
                     itemBuilder: (context, index) {
+                      print('@@@@ ${snapshot.data}');
                       var order = snapshot.data?[index] as OrderModel;
                       return orderCardWidget(order: order);
                     });
@@ -96,7 +95,6 @@ class _ShoppingCartState extends State<ShoppingCartView> {
                       color: Colors.black,
                     ),
                     onPressed: () {
-                   
                       if (order.id != null) {
                         sssBloc.removeOrder(order.id!);
                       }
@@ -122,10 +120,10 @@ class _ShoppingCartState extends State<ShoppingCartView> {
     List<Widget> wArray = [];
     List<Widget> packs = [];
     var total;
-    order.packs!.forEach((key, value) {
-      packs.add(Text('$key x $value', style: cd.paraStyle));
-      total = total + value;
-    });
+    // order.packs!.forEach((key, value) {
+    //   packs.add(Text('$key x $value', style: cd.paraStyle));
+    //   total = total + value;
+    // });
     wArray.add(Text('Total = $total', style: cd.h3Style));
     wArray.addAll(packs);
     wArray.add(Text(
