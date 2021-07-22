@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:synchronized/synchronized.dart';
 import 'package:path/path.dart';
 import 'package:simons_sweet_shop_challenge/data/pack_model.dart';
@@ -183,7 +184,7 @@ class DatabaseHelper {
   }
 
 // Add a new type of sweet
-  Future<void> addSweet(Sweet item) async {
+  Future<void> addSweet(SweetModel item) async {
     try {
       final Database dbClient = await initDb();
       await dbClient.insert(cd.sweetNamesTable, item.toMap(),
@@ -218,7 +219,7 @@ class DatabaseHelper {
         print('saved to db $pack');
       }
 
-      Sweet sweetie = new Sweet(
+      SweetModel sweetie = new SweetModel(
           id: 1,
           name: cd.mockSweetName,
           description:

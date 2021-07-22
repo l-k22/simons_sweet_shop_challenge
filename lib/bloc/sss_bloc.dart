@@ -94,7 +94,8 @@ class SSSBloc {
           // removeOrder();
           break;
         case ShopAction.FetchAllOrders:
-          await fetchAllOrders();
+          var orders = await fetchAllOrders();
+          orderSink.add(orders);
           break;
         case ShopAction.AddMockData:
           await fetchMockData();

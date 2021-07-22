@@ -1,3 +1,5 @@
+import 'package:json_annotation/json_annotation.dart';
+
 /* 
   Order model
   'id' is a unique identifier it also acts as our pack size
@@ -9,21 +11,33 @@
   sweet types e.g chocolate eclairs, gummies etc.
  */
 
+part 'order_model.g.dart';
+
+@JsonSerializable()
 class OrderModel {
   int? id, amount;
+  Map<int, int>? mPacks;
   String? packs;
 
   OrderModel({this.id, required this.amount, required this.packs});
 
+  factory OrderModel.fromJson(Map<String, dynamic> json) =>
+      _$OrderModelFromJson(json);
+  Map<String, dynamic> toJson() => _$OrderModelToJson(this);
+
   Map<String, dynamic> toMap() {
-    return {'amount': amount, 'packs': packs?.toString()};
+    print({'toMap $amount $packs'});
+    return {'amount': amount, 'packs': packs};
   }
 
   OrderModel.fromMap(Map map) {
     id = map["id"] as int;
     amount = map["amount"] as int;
-
-    packs = map["packs"] as String; // blocker need to convert non json string into a map
+    print('fromMap ${map["packs"]}');
+    // tempory code for prototyping
+    String replaceString = map["packs"].toString().replaceAll('=', ":");
+    print('newMap $replaceString');
+    packs = replaceString ;
   }
 
   @override

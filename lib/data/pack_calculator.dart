@@ -17,11 +17,10 @@ import 'database_helper.dart';
 import 'order_model.dart';
 
 class PackCalculator {
-
   PackCalculator(
       {required int orderAmount,
       required List<int> packs,
-      required SplayTreeMap<int,int> packMap}) {
+      required SplayTreeMap<int, int> packMap}) {
     cartCalc(
         amount: orderAmount,
         originalAmount: orderAmount,
@@ -148,9 +147,11 @@ class PackCalculator {
 
         try {
           var db = DatabaseHelper();
-          OrderModel order = OrderModel(amount: originalAmount, packs: '$packMap');
-          print('O R D E R  $order');
-          await db.addOrderToCart(order);
+          OrderModel cartOrder =
+              OrderModel(amount: originalAmount, packs: packMap.toString());
+          print('O R D E R  $cartOrder: ${cartOrder.packs}');
+
+          await db.addOrderToCart(cartOrder);
         } catch (e) {
           print('Error attempting to save order \n$e');
         }

@@ -1,3 +1,4 @@
+import 'package:json_annotation/json_annotation.dart';
 /* 
   Sweet Pack model
   'size' is a unique identifier it also acts as our pack size
@@ -7,11 +8,17 @@
   more defined e.g if shop sells packs other than sweets, or add unique 
   sweet types e.g chocolate eclairs, gummies etc.
  */
+part 'pack_model.g.dart';
+
+@JsonSerializable()
 class PackModel {
   final int size;
 
   PackModel({required this.size});
 
+  factory PackModel.fromJson(Map<String, dynamic> json) =>
+      _$PackModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PackModelToJson(this);
   Map<String, dynamic> toMap() {
     return {'size': size};
   }
@@ -24,31 +31,4 @@ class PackModel {
   String toString() {
     return 'Pack {size: $size}';
   }
-
-  // // setter
-  // set id(int id) {
-  //   this._id = id;
-  // }
-
-  // set order(int order) {
-  //   this._order = order;
-  // }
-
-  // set type(String type) {
-  //   this._type = _type;
-  // }
-
-  // // getters
-  // int get id => this._id;
-  // int get order => this._order;
-  // String get type => this._type;
 }
-
-// class Sweet {
-//   int _id, size;
-//   String name, color, type;
-//   bool sugarFree, glutenFree;
-
-//   Sweet(this._id, this.color, this.glutenFree, this.name, this.size,
-//       this.sugarFree, this.type);
-// }

@@ -40,7 +40,7 @@ class _ShoppingCartState extends State<ShoppingCartView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           pageTitle(),
-          Flexible(child: ListView(children: [cartContentWidget()])),
+          Flexible(child: Column(children: [cartContentWidget()])),
           backBtnWidget()
         ],
       ),
@@ -48,22 +48,22 @@ class _ShoppingCartState extends State<ShoppingCartView> {
   }
 
   Widget cartContentWidget() {
-    return Flexible(
-        child: StreamBuilder<List<OrderModel>>(
-            stream: sssBloc.orderStream,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
+    return StreamBuilder<List<OrderModel>>(
+        stream: sssBloc.orderStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Flexible(
+                child: ListView.builder(
+                    shrinkWrap: true,
                     itemCount: snapshot.data?.length,
                     itemBuilder: (context, index) {
-                      print('@@@@ ${snapshot.data}');
                       var order = snapshot.data?[index] as OrderModel;
                       return orderCardWidget(order: order);
-                    });
-              } else {
-                return orderCardWidget(); //TODO: blank card place holder
-              }
-            }));
+                    }));
+          } else {
+            return orderCardWidget(); //TODO: blank card place holder
+          }
+        });
   }
 
   Widget orderCardWidget({OrderModel? order}) {
