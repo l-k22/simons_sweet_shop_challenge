@@ -1,10 +1,11 @@
 # simons_sweet_shop_challenge
 
-A new Flutter project.
+PLEASE SWITCH TO THE DEVELOP BRANCH IF YOU HAVE NOT YET!
 
 ## Getting Started
 
-This project is a work in progress. There are multiple issues that need address and general code tidy up.
+This project is a work in progress. 
+There are multiple issues that need address and general code tidy up.
 
 ONLY TESTED ON ANDROID DEVICE
 
