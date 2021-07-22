@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a work in progress original started as Flutter v2 but having only worked with v1 and limited time I reverted back to v1. There are multiple issues that need to be addressed and general code tidy up.
+This project is a prototype work in progress, it initially started as Flutter v2 but having only worked with v1 and limited time I reverted back to v1. There are multiple issues that need to be addressed and general code tidy up.
 
 ONLY TESTED ON ANDROID DEVICE
 
@@ -18,9 +18,7 @@ StoreFront - HomeScreen - missing background image, carousel isn't full implemen
 
 Inputting a order amount and pressing 'Add to Cart' will send you to the basket however I have not finished model and database mapping to display the orders so no orders will be visible. You can however see the alogrithm work in the debug console.
 
-Backend - AdminView - I have hidden a 'Load Mock Data' button in a drawer that can only accessed from this view. There an odd glitch I haven't figured out the cause of yet, if you press the Load Mock Data Button only 5000 packs appears however if you leave the page and re-enter the remainder of the list is populated.
-
-EDIT, DELETE buttons have yet to be implemented
+Backend - AdminView - I have hidden a 'Load Mock Data' button in a drawer that can only accessed from this view, simply swipe from left hand side of the screen to the right. There an odd glitch I haven't figured out the cause of yet, if you press the 'Load Mock Data' button only the 5000 pack appears however if you leave the page and re-enter the remainder of the list is populated. The EDIT, DELETE buttons have yet to be implemented, the 'Add Pack' button works however you will not be able to save the new pack.
 
 Assets - Assets haven't been intergrated fully as recommended for Android and IOS devices.
 
