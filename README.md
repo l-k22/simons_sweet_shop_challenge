@@ -1,6 +1,6 @@
 # simons_sweet_shop_challenge
 
-A new Flutter project.
+PLEASE SWITCH TO THE DEVELOP BRANCH IF YOU HAVE NOT YET
 
 ## Getting Started
 
