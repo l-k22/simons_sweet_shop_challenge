@@ -148,7 +148,7 @@ class PackCalculator {
         try {
           var db = DatabaseHelper();
           OrderModel cartOrder =
-              OrderModel(amount: originalAmount, packs: packMap.toString());
+              OrderModel(amount: originalAmount, packs: packMap);
           print('O R D E R  $cartOrder: ${cartOrder.packs}');
 
           await db.addOrderToCart(cartOrder);
@@ -166,48 +166,48 @@ class PackCalculator {
     /* there are scenarios were the store uses multiple packs when the order could be fulfiled with a larger pack this only happens with the smallest pack size. */
     /* Need more research into Subset Sum algorithms */
 
-    // var firstKey = sMap.firstKey(); // find smallest pack size
-    // var secondKey =
-    //     sMap.firstKeyAfter(sMap.firstKey()); // find second smallest pack size
+    var firstKey = sMap.firstKey(); // find smallest pack size
+    var secondKey = sMap
+        .firstKeyAfter(sMap.firstKey() ?? 0); // find second smallest pack size
 
-    // if (firstKey != null && secondKey != null) {
-    //   if (secondKey % firstKey == 0) {
-    //     if (sMap[firstKey] == 2) {
-    //       // update value of second element with that of the first
-    //       sMap.update(secondKey, (value) => value + 1);
-    //       // remove the original value
-    //       sMap.update(firstKey, (value) => value - value);
-    //     }
-    //   }
-    // }
+    if (firstKey != null && secondKey != null) {
+      if (secondKey % firstKey == 0) {
+        if (sMap[firstKey] == 2) {
+          // update value of second element with that of the first
+          sMap.update(secondKey, (value) => value + 1);
+          // remove the original value
+          sMap.update(firstKey, (value) => value - value);
+        }
+      }
+    }
     //TODO replacement cleanup method to handle prime numbers
 
-    sMap.forEach((fKey, fValue) {
-      sMap.forEach((sKey, sValue) {
-        // compare each <k,v> pair to one another.
-        if (sKey % fKey == 0) {
-          // use modulo operator to find smaller packs that multiples can tally up into larger packs.
-          if (sMap[fKey]! > 1) {
-            // check if pack contains more than one order.
-            // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
-            int divPack = (sKey ~/ fKey);
-            int divPackTotal = (fValue ~/ divPack);
-            // update packs with new amounts
-            sMap.update(sKey, (value) => value + 1);
-            // remove order from small pack
-            sMap.update(fKey, (value) => value - divPackTotal);
+    // sMap.forEach((fKey, fValue) {
+    //   sMap.forEach((sKey, sValue) {
+    //     // compare each <k,v> pair to one another.
+    //     if (sKey % fKey == 0) {
+    //       // use modulo operator to find smaller packs that multiples can tally up into larger packs.
+    //       if (sMap[fKey]! > 1) {
+    //         // check if pack contains more than one order.
+    //         // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
+    //         int divPack = (sKey ~/ fKey);
+    //         int divPackTotal = (fValue ~/ divPack);
+    //         // update packs with new amounts
+    //         sMap.update(sKey, (value) => value + 1);
+    //         // remove order from small pack
+    //         sMap.update(fKey, (value) => value - divPackTotal);
 
-            print(
-                ' ZZZ sky % fkey == 1 : $sKey % $fKey = ${(sKey ~/ fKey)}'); // truncate down
-            //   // update value of second element with that of the first
-            // sMap.update(sKey, (value) => );
-            // // remove the original value
-            // sMap.update(fKey, (value) => );
-            cartCleanUp(sMap); // recursive call
-          }
-        }
-      });
-    });
+    //         print(
+    //             ' ZZZ sky % fkey == 1 : $sKey % $fKey = ${(sKey ~/ fKey)}'); // truncate down
+    //         //   // update value of second element with that of the first
+    //         // sMap.update(sKey, (value) => );
+    //         // // remove the original value
+    //         // sMap.update(fKey, (value) => );
+    //         cartCleanUp(sMap); // recursive call
+    //       }
+    //     }
+    //   });
+    // });
     // recursive call
   }
 }

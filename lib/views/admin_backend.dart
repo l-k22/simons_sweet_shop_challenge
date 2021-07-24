@@ -62,7 +62,8 @@ class _AdminViewState extends State<AdminView> {
       onTap: () {
         sssBloc.shopSink.add(ShopAction.AddMockData);
         sssBloc.shopSink.add(ShopAction.FetchAllPacks);
-        Navigator.pop(context); // close nav
+        Future.delayed(Duration(milliseconds: 500),
+            () => Navigator.pop(context)); // close nav
       },
     );
   }

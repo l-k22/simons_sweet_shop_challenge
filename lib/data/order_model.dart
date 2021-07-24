@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 /* 
@@ -17,9 +19,11 @@ part 'order_model.g.dart';
 class OrderModel {
   int? id, amount;
   Map<int, int>? mPacks;
-  String? packs;
+  // String? packs;
+  Map<int, int>? packs;
 
-  OrderModel({this.id, required this.amount, required this.packs});
+  OrderModel(
+      {this.id, required this.amount, required this.packs /* , this.cPacks */});
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
@@ -33,11 +37,23 @@ class OrderModel {
   OrderModel.fromMap(Map map) {
     id = map["id"] as int;
     amount = map["amount"] as int;
-    print('fromMap ${map["packs"]}');
-    // tempory code for prototyping
-    String replaceString = map["packs"].toString().replaceAll('=', ":");
-    print('newMap $replaceString');
-    packs = replaceString ;
+    // SQFlite query map colons are replaced with equal symbols so
+    // we need to remove and replace them as well as remove quotation
+    // marks to use our model.
+    String replaceString =
+        map["packs"].replaceAll('=', ":").replaceAll('\"', "");
+
+    final deQuotedString =
+        replaceString.replaceAllMapped(RegExp(r'\b\w+\b'), (match) {
+      return '"${match.group(0)}"';
+    });
+
+    var decoded = json
+        .decode(deQuotedString); // decode json then parse key values as ints
+    final Map<int, int> convertedStringToMap =
+        decoded.map((key, value) => MapEntry(int.parse(key), int.parse(value)));
+
+    packs = convertedStringToMap;
   }
 
   @override

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:synchronized/synchronized.dart';
 import 'package:path/path.dart';
 import 'package:simons_sweet_shop_challenge/data/pack_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -19,20 +17,6 @@ import 'sweet_model.dart';
 class DatabaseHelper {
   static final DatabaseHelper _instance = new DatabaseHelper.internal();
   factory DatabaseHelper() => _instance;
-  static var _db;
-  final _lock = new Lock();
-
-  Future<Database> get db async {
-    if (_db == null) {
-      await _lock.synchronized(() async {
-        if (_db == null) {
-          _db = await initDb();
-          return _db;
-        }
-      });
-    }
-    return _db;
-  }
 
   DatabaseHelper.internal();
 
@@ -157,7 +141,7 @@ class DatabaseHelper {
   Future<void> removePack(int id) async {
     try {
       final Database dbClient = await initDb();
-      dbClient.delete(cd.packSizeTable, where: 'id = ?', whereArgs: [id]);
+      await dbClient.delete(cd.packSizeTable, where: 'id = ?', whereArgs: [id]);
     } catch (e) {
       print('....ERROR! Not able to remove pack data to database $e');
     }
@@ -177,9 +161,19 @@ class DatabaseHelper {
   Future<void> removeOrder(int id) async {
     try {
       final Database dbClient = await initDb();
-      dbClient.delete(cd.cartTable, where: 'id = ?', whereArgs: [id]);
+      await dbClient.delete(cd.cartTable, where: 'id = ?', whereArgs: [id]);
     } catch (e) {
       print('....ERROR! Not able to remove pack data to database $e');
+    }
+  }
+
+// remove all orders
+  Future<void> emptyCart() async {
+    try {
+      final Database dbClient = await initDb();
+      await dbClient.delete(cd.cartTable);
+    } catch (e) {
+      print('....ERROR! Not able to remove all orders $e');
     }
   }
 
@@ -198,7 +192,7 @@ class DatabaseHelper {
   Future<void> removeSweet(int id) async {
     try {
       final Database dbClient = await initDb();
-      dbClient.delete(cd.sweetNamesTable, where: 'id = ?', whereArgs: [id]);
+      await dbClient.delete(cd.sweetNamesTable, where: 'id = ?', whereArgs: [id]);
     } catch (e) {
       print('....ERROR! Not able to remove sweet data to database $e');
     }

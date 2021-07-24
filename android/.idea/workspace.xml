@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="670823cb-126e-4c6a-be2a-08962ab7f226" name="Default Changelist" comment="" />
+    <list default="true" id="670823cb-126e-4c6a-be2a-08962ab7f226" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/bloc/sss_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/bloc/sss_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/data/order_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/data/order_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/data/order_model.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/data/order_model.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/data/pack_calculator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/data/pack_calculator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/views/shopping_cart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/views/shopping_cart.dart" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +37,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../flutter" />
   </component>
   <component name="ProjectId" id="1vWXJCN8yFenbkfYXyMVcCb5XcJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />

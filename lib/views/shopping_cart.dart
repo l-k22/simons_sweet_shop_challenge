@@ -28,6 +28,35 @@ class _ShoppingCartState extends State<ShoppingCartView> {
     return Scaffold(
       appBar: CustomAppBar(),
       body: _cartData,
+      drawer: Theme(
+          data: Theme.of(context).copyWith(canvasColor: Colors.white38),
+          child: Drawer(
+            // drawer to mock data button
+            child: ListView(
+              padding: EdgeInsets.symmetric(
+                  vertical: cd.drawerPaddingVertical,
+                  horizontal: cd.drawerPadding),
+              children: [clearCartDataBtn()],
+            ),
+          )),
+    );
+  }
+
+  Widget clearCartDataBtn() {
+    return ListTile(
+      tileColor: cd.primaryColor,
+      selectedTileColor: cd.primaryColor,
+      title: Text(
+        'Clear all Cart Data',
+        style: cd.h2Style,
+      ),
+      leading: Icon(Icons.download_rounded),
+      shape: cd.roundedRectangleBody,
+      onTap: () {
+        sssBloc.shopSink.add(ShopAction.ClearCartData);
+        Future.delayed(Duration(milliseconds: 500),
+            () => Navigator.pop(context)); // close nav
+      },
     );
   }
 
@@ -72,7 +101,8 @@ class _ShoppingCartState extends State<ShoppingCartView> {
             shape: cd.roundedRectangleBody,
             elevation: 6,
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Stack(children: <Widget>[
+              Flexible(
+                  child: Stack(children: <Widget>[
                 Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(cd.borderRadius),
@@ -103,8 +133,9 @@ class _ShoppingCartState extends State<ShoppingCartView> {
                         primary: Colors.white, shape: CircleBorder()),
                   ),
                 ),
-              ]),
+              ])),
               Flexible(
+                  flex: 2,
                   child: Padding(
                       padding: EdgeInsets.all(cd.paraPadding),
                       child: Column(
@@ -112,7 +143,7 @@ class _ShoppingCartState extends State<ShoppingCartView> {
                         children: textFormatter(order),
                       )))
             ]))
-        : Text('Please configure packs',
+        : Text('The cart is empty',
             style: cd.h3Style); // add mock data via admin drawer
   }
 

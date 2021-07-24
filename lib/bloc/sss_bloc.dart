@@ -20,7 +20,8 @@ enum ShopAction {
   RemovePackSize,
   SavePackSize,
   FetchAllPacks,
-  AddMockData
+  AddMockData,
+  ClearCartData
 }
 enum PackAction {
   AddPackSize,
@@ -87,11 +88,16 @@ class SSSBloc {
           break;
         // Customer calls
         case ShopAction.AddToCart:
-          var order = await fetchAllOrders();
-          orderSink.add(order);
+          // var order = await fetchAllOrders();
+          // orderSink.add(order);
           break;
         case ShopAction.RemoveOrder:
           // removeOrder();
+          break;
+        case ShopAction.ClearCartData:
+          await removeAllOrders();
+          var order = await fetchAllOrders();
+          orderSink.add(order);
           break;
         case ShopAction.FetchAllOrders:
           var orders = await fetchAllOrders();
@@ -199,8 +205,11 @@ class SSSBloc {
   Future<void> removeOrder(int orderId) async {
     var db = DatabaseHelper();
     await db.removeOrder(orderId); // remove pack from mock data
-    // return await db
-    //     .fetchAllOrders(); // return the newly updated data from database
+  }
+
+  Future<void> removeAllOrders() async {
+    var db = DatabaseHelper();
+    await db.emptyCart(); // remove pack from mock data
   }
 
   Future<void> addToCart(int amount) async {
@@ -215,9 +224,7 @@ class SSSBloc {
       packTree[element.size] = 0;
     });
     PackCalculator(orderAmount: amount, packs: packArray, packMap: packTree);
-    _stateOrderStreamController.sink.add([order]);
-    // return await db
-    //     .fetchAllOrders(); // return the newly updated data from database
+    _stateOrderStreamController.sink.add([order]); //bloc
   }
 
   Future<void> fetchMockData() async {
