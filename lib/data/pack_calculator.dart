@@ -100,8 +100,7 @@ class PackCalculator {
       }
 
       // if the smallest of the larger packs is not null whilst largest of the smaller is null
-      if (packSizeDifferenceGreaterOrEqualTo != null ||
-          packSizeDifferenceGreaterOrEqualTo != -1) {
+      if (packSizeDifferenceGreaterOrEqualTo != null) {
         if (packSizeDifferenceLessOrEqualTo == null) {
           nLargestPackSize = nearestPackSizeGreaterOrEqualTo.first;
           print(
