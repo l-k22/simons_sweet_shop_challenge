@@ -88,7 +88,6 @@ class SSSBloc {
           break;
         // Customer calls
         case ShopAction.AddToCart:
-          // var order = await fetchAllOrders();
           // orderSink.add(order);
           break;
         case ShopAction.RemoveOrder:
@@ -216,13 +215,15 @@ class SSSBloc {
     var db = DatabaseHelper();
     SplayTreeMap<int, int> packTree = SplayTreeMap();
     OrderModel order = OrderModel(amount: amount, packs: null);
-    print('addToCart received call');
-    List<PackModel> dbPacks = await db.fetchAllPacks();
+
+    List<PackModel> dbPacks = await db.fetchAllPacks(); // get latest pack sizes
+
     List<int> packArray = [];
     dbPacks.forEach((element) {
       packArray.add(element.size);
       packTree[element.size] = 0;
     });
+
     PackCalculator(orderAmount: amount, packs: packArray, packMap: packTree);
     _stateOrderStreamController.sink.add([order]); //bloc
   }

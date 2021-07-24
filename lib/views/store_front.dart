@@ -198,7 +198,7 @@ class _StoreFrontViewState extends State<StoreFrontView> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: cd.secondaryColor),
         child: const Text(cd.addToCartText, style: cd.h3Style),
-        onPressed: () {
+        onPressed: () async {
           // Validate will return true if the form is valid, or false if
           // the form is invalid.
 
@@ -207,7 +207,7 @@ class _StoreFrontViewState extends State<StoreFrontView> {
             int orderAmount =
                 int.parse(_selectAmountInputController.value.text);
 
-            sssBloc.addToCart(orderAmount);
+            await sssBloc.addToCart(orderAmount);
             Navigator.pushNamed(context, cd.cartView);
           }
           //TEMP

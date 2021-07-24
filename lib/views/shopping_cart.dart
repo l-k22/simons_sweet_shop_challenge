@@ -28,17 +28,6 @@ class _ShoppingCartState extends State<ShoppingCartView> {
     return Scaffold(
       appBar: CustomAppBar(),
       body: _cartData,
-      drawer: Theme(
-          data: Theme.of(context).copyWith(canvasColor: Colors.white38),
-          child: Drawer(
-            // drawer to mock data button
-            child: ListView(
-              padding: EdgeInsets.symmetric(
-                  vertical: cd.drawerPaddingVertical,
-                  horizontal: cd.drawerPadding),
-              children: [clearCartDataBtn()],
-            ),
-          )),
     );
   }
 
@@ -80,17 +69,18 @@ class _ShoppingCartState extends State<ShoppingCartView> {
     return StreamBuilder<List<OrderModel>>(
         stream: sssBloc.orderStream,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.hasData && snapshot.data!.length > 0) {
             return Flexible(
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: snapshot.data?.length,
+                    itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       var order = snapshot.data?[index] as OrderModel;
                       return orderCardWidget(order: order);
                     }));
           } else {
-            return orderCardWidget(); //TODO: blank card place holder
+            return Text('The cart is empty',
+                style: cd.h3Style); //TODO: blank card place holder
           }
         });
   }
@@ -101,39 +91,41 @@ class _ShoppingCartState extends State<ShoppingCartView> {
             shape: cd.roundedRectangleBody,
             elevation: 6,
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Flexible(
+              FittedBox(
+                  fit: BoxFit.fill,
                   child: Stack(children: <Widget>[
-                Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(cd.borderRadius),
-                        image: DecorationImage(
-                            image: ExactAssetImage('assets/Sweets.png'),
-                            fit: BoxFit.contain)),
-                    alignment: Alignment.center,
-                    height: 120,
-                    width: 120,
-                    margin: EdgeInsets.only(
-                        top: cd.paraPadding,
-                        left: cd.paraPadding,
-                        bottom: cd.paraPadding)),
-                Positioned(
-                  top: cd.btnPadding,
-                  left: cd.btnPadding,
-                  child: ElevatedButton(
-                    child: Icon(
-                      Icons.delete_forever,
-                      color: Colors.black,
+                    Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(cd.borderRadius),
+                            image: DecorationImage(
+                                image: ExactAssetImage('assets/Sweets.png'),
+                                fit: BoxFit.cover)),
+                        alignment: Alignment.center,
+                        height: 100,
+                        width: 100,
+                        margin: EdgeInsets.only(
+                            top: cd.paraPadding,
+                            left: cd.paraPadding,
+                            bottom: cd.paraPadding)),
+                    Positioned(
+                      top: cd.btnPadding,
+                      left: cd.btnPadding,
+                      child: ElevatedButton(
+                        child: Icon(
+                          Icons.delete_forever,
+                          color: Colors.black,
+                        ),
+                        onPressed: () async {
+                          if (order.id != null) {
+                            await sssBloc.removeOrder(order.id!);
+                            sssBloc.shopSink.add(ShopAction.FetchAllOrders);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white, shape: CircleBorder()),
+                      ),
                     ),
-                    onPressed: () {
-                      if (order.id != null) {
-                        sssBloc.removeOrder(order.id!);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.white, shape: CircleBorder()),
-                  ),
-                ),
-              ])),
+                  ])),
               Flexible(
                   flex: 2,
                   child: Padding(
@@ -150,17 +142,20 @@ class _ShoppingCartState extends State<ShoppingCartView> {
   List<Widget> textFormatter(OrderModel order) {
     List<Widget> wArray = [];
     List<Widget> packs = [];
-    var total;
-    // order.packs!.forEach((key, value) {
-    //   packs.add(Text('$key x $value', style: cd.paraStyle));
-    //   total = total + value;
-    // });
-    wArray.add(Text('Total = $total', style: cd.h3Style));
-    wArray.addAll(packs);
+    var total = 0;
+    if (order.packs!.length > 0) {
+      order.packs?.forEach((key, value) {
+        packs.add(Text('$value x $key', style: cd.paraStyle));
+      });
+    }
+
     wArray.add(Text(
       '${cd.mockSweetName} x ${order.amount}',
       style: cd.h2Style,
     ));
+
+    wArray.addAll(packs);
+    wArray.add(Text('Total = ${order.totalPacks}', style: cd.h3Style));
 
     return wArray;
   }

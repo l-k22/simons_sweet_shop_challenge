@@ -17,24 +17,22 @@ part 'order_model.g.dart';
 
 @JsonSerializable()
 class OrderModel {
-  int? id, amount;
-  Map<int, int>? mPacks;
-  // String? packs;
-  Map<int, int>? packs;
+  int? id, amount; // customer order amount
+  Map<int, int>? packs; // pack size to pack amount key value pair
+  int? totalPacks; // total packs for cart display
 
-  OrderModel(
-      {this.id, required this.amount, required this.packs /* , this.cPacks */});
+  OrderModel({this.id, required this.amount, required this.packs});
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
 
   Map<String, dynamic> toMap() {
-    print({'toMap $amount $packs'});
     return {'amount': amount, 'packs': packs};
   }
 
   OrderModel.fromMap(Map map) {
+    totalPacks = 0;
     id = map["id"] as int;
     amount = map["amount"] as int;
     // SQFlite query map colons are replaced with equal symbols so
@@ -48,12 +46,16 @@ class OrderModel {
       return '"${match.group(0)}"';
     });
 
-    var decoded = json
-        .decode(deQuotedString); // decode json then parse key values as ints
-    final Map<int, int> convertedStringToMap =
-        decoded.map((key, value) => MapEntry(int.parse(key), int.parse(value)));
+    // decode json then parse key values as ints
+    var decoded = json.decode(deQuotedString);
+    
+    final Map<dynamic, dynamic> convertedStringToMap =
+        decoded.map((key, value) {
+      totalPacks = totalPacks! + int.parse(key);
+      return MapEntry(int.parse(key), int.parse(value));
+    });
 
-    packs = convertedStringToMap;
+    packs = convertedStringToMap.cast();
   }
 
   @override

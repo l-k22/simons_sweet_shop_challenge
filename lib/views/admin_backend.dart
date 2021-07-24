@@ -42,7 +42,10 @@ class _AdminViewState extends State<AdminView> {
               padding: EdgeInsets.symmetric(
                   vertical: cd.drawerPaddingVertical,
                   horizontal: cd.drawerPadding),
-              children: [fetchMockDataBtn()],
+              children: ListTile.divideTiles(
+                  color: cd.brandingColor,
+                  context: context,
+                  tiles: [fetchMockDataBtn(), clearCartDataBtn()]).toList(),
             ),
           )),
       body: _backendView,
@@ -59,9 +62,27 @@ class _AdminViewState extends State<AdminView> {
       ),
       leading: Icon(Icons.download_rounded),
       shape: cd.roundedRectangleBody,
-      onTap: () {
+      onTap: () async {
         sssBloc.shopSink.add(ShopAction.AddMockData);
         sssBloc.shopSink.add(ShopAction.FetchAllPacks);
+        Future.delayed(Duration(milliseconds: 500),
+            () => Navigator.pop(context)); // close nav
+      },
+    );
+  }
+
+  Widget clearCartDataBtn() {
+    return ListTile(
+      tileColor: cd.primaryColor,
+      selectedTileColor: cd.primaryColor,
+      title: Text(
+        'Clear all Cart Data',
+        style: cd.h2Style,
+      ),
+      leading: Icon(Icons.download_rounded),
+      shape: cd.roundedRectangleBody,
+      onTap: () {
+        sssBloc.shopSink.add(ShopAction.ClearCartData);
         Future.delayed(Duration(milliseconds: 500),
             () => Navigator.pop(context)); // close nav
       },
@@ -189,8 +210,11 @@ class _AdminViewState extends State<AdminView> {
             Flexible(
                 child: IconButton(
                     icon: const Icon(Icons.delete_forever_outlined),
-                    onPressed: () {
+                    onPressed: () async {
                       sssBloc.shopSink.add(ShopAction.RemovePackSize);
+                      if (pack?.size != null) {
+                        await sssBloc.removePack(pack!.size);
+                      }
                     }))
           ],
         )),
