@@ -141,7 +141,8 @@ class DatabaseHelper {
   Future<void> removePack(int id) async {
     try {
       final Database dbClient = await initDb();
-      await dbClient.delete(cd.packSizeTable, where: 'id = ?', whereArgs: [id]);
+      await dbClient
+          .delete(cd.packSizeTable, where: 'size = ?', whereArgs: [id]);
     } catch (e) {
       print('....ERROR! Not able to remove pack data to database $e');
     }
@@ -192,7 +193,8 @@ class DatabaseHelper {
   Future<void> removeSweet(int id) async {
     try {
       final Database dbClient = await initDb();
-      await dbClient.delete(cd.sweetNamesTable, where: 'id = ?', whereArgs: [id]);
+      await dbClient
+          .delete(cd.sweetNamesTable, where: 'id = ?', whereArgs: [id]);
     } catch (e) {
       print('....ERROR! Not able to remove sweet data to database $e');
     }
