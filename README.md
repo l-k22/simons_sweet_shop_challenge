@@ -6,7 +6,7 @@ PLEASE SWITCH TO THE DEVELOP BRANCH IF YOU HAVE NOT YET
 
 This project is a prototype work in progress, it initially started as Flutter v2 but having only worked with v1 and limited time I reverted back to v1. There are multiple issues that need to be addressed and general code tidy up.
 
-ONLY TESTED ON ANDROID DEVICE
+TESTED ON AN ANDROID & IPHONE Xr DEVICE 
 
 I took this challenge as an opportunity to learn Bloc state management pattern as it was mentioned as being used in the company's own app. My previous apps all used MVP pattern, I haven't quite got to grips with Bloc but it seems very powerful.
 
@@ -16,7 +16,7 @@ Calculation Algorithm has been through a few re-writes but it can still be optim
 
 StoreFront - HomeScreen - missing background image, carousel isn't full implemented it use placeholder array to display images that should be pulled from the database. Same with the description and sweet title but these are located in the database.
 
-Backend - AdminView - I have hidden a 'Load Mock Data' and 'Clear Cart' button in a drawer that can only accessed from this view, simply swipe from left hand side of the screen to the right. The EDIT button has yet to be implemented, the 'Add Pack' button works however you will not be able to save the new pack.
+Backend - AdminView - I have hidden a 'Load Mock Data' and 'Clear Cart' button in a drawer that can only accessed from this view, simply swipe from right hand side of the screen to the left. The EDIT button has now been implemented however UX isn't perfect, it should only toggle the pack you want to edit not all.
 
 Assets - Assets haven't been intergrated fully as recommended for Android and IOS devices.
 

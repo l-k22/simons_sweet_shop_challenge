@@ -38,8 +38,10 @@ class OrderModel {
     // SQFlite query map colons are replaced with equal symbols so
     // we need to remove and replace them as well as remove quotation
     // marks to use our model.
-    String replaceString =
-        map["packs"].replaceAll('=', ":").replaceAll('\"', "");
+    String replaceString = map["packs"]
+        .replaceAll('=', ":")
+        .replaceAll('\"', "")
+        .replaceAll(';', "");
 
     final deQuotedString =
         replaceString.replaceAllMapped(RegExp(r'\b\w+\b'), (match) {
@@ -48,7 +50,7 @@ class OrderModel {
 
     // decode json then parse key values as ints
     var decoded = json.decode(deQuotedString);
-    
+
     final Map<dynamic, dynamic> convertedStringToMap =
         decoded.map((key, value) {
       totalPacks = totalPacks! + int.parse(key);

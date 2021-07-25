@@ -82,7 +82,6 @@ class DatabaseHelper {
     final Database dbClient = await initDb();
     List<OrderModel> orderList = [];
     final List<Map<String, dynamic>> maps = await dbClient.query(cd.cartTable);
-    print('fetch all orders from db: $maps');
     maps.asMap().forEach((key, value) {
       OrderModel oM = OrderModel.fromMap(value);
       orderList.add(oM);
@@ -212,7 +211,6 @@ class DatabaseHelper {
       ];
       for (PackModel pack in mockPacks) {
         await addPack(pack); // save packs to database
-        print('saved to db $pack');
       }
 
       SweetModel sweetie = new SweetModel(

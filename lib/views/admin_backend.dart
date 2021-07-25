@@ -37,7 +37,8 @@ class _AdminViewState extends State<AdminView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      drawer: Theme(
+      // use end drawer since swipe left to right on ios returns user to previous screen.
+      endDrawer: Theme(
           data: Theme.of(context).copyWith(canvasColor: Colors.white38),
           child: Drawer(
             // drawer to mock data button
