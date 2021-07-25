@@ -76,6 +76,7 @@ const String debug = "/debug";
 const appName = "Simon's Sweet Shop Challenge";
 const shopName = "Simon's";
 const author = "Larsson Kabukoba";
+const authorUrl = "https://stackoverflow.com/users/469335/f-1";
 const host = "Wise.";
 const addToCartText = "Add to Cart";
 const cartHeader = "Cart";

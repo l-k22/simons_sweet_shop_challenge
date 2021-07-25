@@ -10,6 +10,8 @@
   [orderAmount]
   [originalAmount]
   [remaining]
+
+  comments would be removed for production
  */
 
 import 'dart:collection';
