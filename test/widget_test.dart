@@ -42,25 +42,27 @@ void main() {
       sMap.forEach((fKey, fValue) {
         sMap.forEach((sKey, sValue) {
           // compare each <k,v> pair to one another.
-          if (sKey % fKey == 0) {
-            // use modulo operator to find smaller packs that multiples can tally up into larger packs.
-            if (sMap[fKey]! > 1) {
-              // check if pack contains more than one order.
-              // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
-              int divPack = (sKey ~/ fKey);
-              int divPackTotal = (fValue ~/ divPack);
-              // update packs with new amounts
-              sMap.update(sKey, (value) => value + 1);
-              // remove order from small pack
-              sMap.update(fKey, (value) => value - divPackTotal);
+          if (fKey != sKey) {
+            if (sKey % fKey == 0) {
+              // use modulo operator to find smaller packs that multiples can tally up into larger packs.
+              if (sMap[fKey]! > 1) {
+                // check if pack contains more than one order.
+                // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
+                int divPack = (sKey ~/ fKey);
+                int divPackTotal = (fValue ~/ divPack);
+                // update packs with new amounts
+                sMap.update(sKey, (value) => value + 1);
+                // remove order from small pack
+                sMap.update(fKey, (value) => value - value);
 
-              print(
-                  ' ZZZ sky % fkey == 1 : $sKey % $fKey = ${(sKey ~/ fKey)}'); // truncate down
-              //   // update value of second element with that of the first
-              // sMap.update(sKey, (value) => );
-              // // remove the original value
-              // sMap.update(fKey, (value) => );
-              cartCleanUp(sMap); // recursive call
+                print(
+                    ' ZZZ sky % fkey == 1 : $sKey % $fKey = ${(sKey ~/ fKey)}'); // truncate down
+                //   // update value of second element with that of the first
+                // sMap.update(sKey, (value) => );
+                // // remove the original value
+                // sMap.update(fKey, (value) => );
+                cartCleanUp(sMap); // recursive call
+              }
             }
           }
         });
@@ -166,7 +168,7 @@ void main() {
           print('>>> set ${packMap.toString()}');
           packMap.removeWhere((key, value) => value == 0);
           print(
-              '=***= Order for ${originalOrder.toString()} sweets has been fulfilled ${packMap.toString()} =***=');
+              '= *** = Order for ${originalOrder.toString()} sweets has been fulfilled ${packMap.toString()} = *** =');
         }
       } else {
         print("Sweet Pack Array Empty! Simon's Sweet Shop Is Out of Stock!");

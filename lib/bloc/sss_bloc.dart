@@ -1,6 +1,6 @@
 /* 
   SSSBloc 
-  class contains our business logic for ordering packs
+  WIP class contains our business logic for ordering packs
  */
 
 import 'dart:async';
@@ -65,7 +65,7 @@ class SSSBloc {
         case ShopAction.FetchAllPacks:
           try {
             var packs = await fetchAllPacks();
-            packSink.add(packs);
+            _statePackStreamController.sink.add(packs);
           } catch (e) {
             packSink.addError('Something went wrong unable to fetch packs');
           }
@@ -85,6 +85,12 @@ class SSSBloc {
           _boolSink.add(editSaveToggleBtn);
           break;
         case ShopAction.RemovePackSize:
+          try {
+            var packs = await fetchAllPacks();
+            packSink.add(packs);
+          } catch (e) {
+            packSink.addError('Something went wrong unable to fetch packs');
+          }
           break;
         // Customer calls
         case ShopAction.AddToCart:
@@ -115,15 +121,6 @@ class SSSBloc {
     _statePackStreamController.close();
   }
 
-  //TODO: List of packs
-
-//TODO: Stream Controllers
-
-//TODO: String SINK Getter
-
-//TODO: Constructor - add data, remove data, edit data, listen to changes
-
-//TODO: Core functions
   Future<List<PackModel>> fetchAllPacks() async {
     /* 
     // We make an api call here but for this demo I will be using mock data stored in the database.
@@ -147,7 +144,6 @@ class SSSBloc {
      */
     var db = DatabaseHelper();
     var packs = await db.fetchAllPacks();
-    print('fetchPacks Bloc $packs');
     return packs;
   }
 
@@ -178,26 +174,20 @@ class SSSBloc {
     var db = DatabaseHelper();
     PackModel pack = PackModel(size: size);
     await db.addPack(pack);
-    // return await db
-    //     .fetchAllPacks(); // return the newly updated data from database
   }
 
-  Future<List<PackModel>> editPack(int previousSize, int newSize) async {
+  Future<void> editPack(int previousSize, int newSize) async {
     var db = DatabaseHelper();
     await removePack(previousSize);
 
     PackModel pack = PackModel(size: newSize);
     // we can use the same method since our conflictAlgorithm is set to replace
     await db.addPack(pack);
-
-    return await db
-        .fetchAllPacks(); // return the newly updated data from database
   }
 
   Future<List<OrderModel>> fetchAllOrders() async {
     var db = DatabaseHelper();
     var orders = await db.fetchAllOrders();
-    print('bloc orders: $orders');
     return orders;
   }
 

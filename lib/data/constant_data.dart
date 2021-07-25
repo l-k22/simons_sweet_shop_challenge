@@ -55,6 +55,8 @@ const TextStyle h2Style = TextStyle(
     fontSize: h2FontSize, color: dTextColor, fontWeight: FontWeight.w700);
 const TextStyle h3Style = TextStyle(
     fontSize: h3FontSize, color: dTextColor, fontWeight: FontWeight.w600);
+const TextStyle h3StyleDisabled = TextStyle(
+    fontSize: h3FontSize, color: Colors.grey, fontWeight: FontWeight.w600);
 const TextStyle paraStyle = TextStyle(
     fontSize: paraFontSize, color: dTextColor, fontWeight: FontWeight.w400);
 

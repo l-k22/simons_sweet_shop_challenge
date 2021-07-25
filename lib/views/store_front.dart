@@ -167,6 +167,7 @@ class _StoreFrontViewState extends State<StoreFrontView> {
               key: _formKey,
               child: TextFormField(
                 controller: _selectAmountInputController,
+                autofocus: false,
                 style: cd.h3Style,
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.numberWithOptions(

@@ -142,10 +142,12 @@ class _ShoppingCartState extends State<ShoppingCartView> {
   List<Widget> textFormatter(OrderModel order) {
     List<Widget> wArray = [];
     List<Widget> packs = [];
-    var total = 0;
+    int total = 0;
     if (order.packs!.length > 0) {
-      order.packs?.forEach((key, value) {
+      (order.packs)!.forEach((key, value) {
+        //ordering needs tweaking largest pack should be displayed first
         packs.add(Text('$value x $key', style: cd.paraStyle));
+        total = total + (key * value);
       });
     }
 
@@ -155,7 +157,7 @@ class _ShoppingCartState extends State<ShoppingCartView> {
     ));
 
     wArray.addAll(packs);
-    wArray.add(Text('Total = ${order.totalPacks}', style: cd.h3Style));
+    wArray.add(Text('Total = $total', style: cd.h3Style));
 
     return wArray;
   }

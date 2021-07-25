@@ -33,14 +33,13 @@ class PackCalculator {
     var packs = await db.fetchAllPacks();
 
     List<int> packArray = [];
+
     packs.forEach((element) {
       packArray.add(element.size);
     });
 
     return packArray;
   }
-
-  void createKeyPackMap() async {}
 
   void cartCalc(
       {required int amount,
@@ -165,6 +164,9 @@ class PackCalculator {
     /* there are scenarios were the store uses multiple packs when the order could be fulfiled with a larger pack this only happens with the smallest pack size. */
     /* Need more research into Subset Sum algorithms */
 
+    //TODO replacement cleanup method to handle prime numbers
+
+    // hacky fix for first two elements
     var firstKey = sMap.firstKey(); // find smallest pack size
     var secondKey = sMap
         .firstKeyAfter(sMap.firstKey() ?? 0); // find second smallest pack size
@@ -179,34 +181,28 @@ class PackCalculator {
         }
       }
     }
-    //TODO replacement cleanup method to handle prime numbers
 
-    // sMap.forEach((fKey, fValue) {
-    //   sMap.forEach((sKey, sValue) {
-    //     // compare each <k,v> pair to one another.
-    //     if (sKey % fKey == 0) {
-    //       // use modulo operator to find smaller packs that multiples can tally up into larger packs.
-    //       if (sMap[fKey]! > 1) {
-    //         // check if pack contains more than one order.
-    //         // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
-    //         int divPack = (sKey ~/ fKey);
-    //         int divPackTotal = (fValue ~/ divPack);
-    //         // update packs with new amounts
-    //         sMap.update(sKey, (value) => value + 1);
-    //         // remove order from small pack
-    //         sMap.update(fKey, (value) => value - divPackTotal);
-
-    //         print(
-    //             ' ZZZ sky % fkey == 1 : $sKey % $fKey = ${(sKey ~/ fKey)}'); // truncate down
-    //         //   // update value of second element with that of the first
-    //         // sMap.update(sKey, (value) => );
-    //         // // remove the original value
-    //         // sMap.update(fKey, (value) => );
-    //         cartCleanUp(sMap); // recursive call
-    //       }
-    //     }
-    //   });
-    // });
+    /* 
+    // WIP
+    sMap.forEach((fKey, fValue) {
+      sMap.forEach((sKey, sValue) {
+        // compare each <k,v> pair to one another.
+        if (fKey != sKey) {
+          if (sKey % fKey == 0) {
+            // use modulo operator to find smaller packs that multiples can tally up into larger packs.
+            if (sMap[fKey]! > 1) {
+              // check if pack contains more than one order.
+              // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
+              // update packs with new amounts
+              sMap.update(sKey, (value) => value + 1);
+              // remove order from small pack
+              sMap.update(fKey, (value) => value - value);
+              cartCleanUp(sMap); // recursive call
+            }
+          }
+        }
+      });
+    }); */
     // recursive call
   }
 }

@@ -23,7 +23,6 @@ class PackModel {
     return {'size': size};
   }
 
-  // PackModel.fromJson(Map json) : size = json['size'];
   // from the database value map we need the key value pair stored inside
   PackModel.fromMap(Map map) : size = map["size"] as int;
 

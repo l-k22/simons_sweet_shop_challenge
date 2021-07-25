@@ -12,11 +12,11 @@ I took this challenge as an opportunity to learn Bloc state management pattern a
 
 Unit Test partially written - The only unit test written is for the algorithm in your terminal run 'flutter test test'.  Test are missing their comparison to their expected outcome. Unit tests for button presses are next on the list of things to do.
 
-Calculation Algorithm has been through a few re-writes but it can still be optimised. The final method 'cartCleanUp' needs reworking, Subset Sum solution is required.
+Calculation Algorithm has been through a few re-writes but it can still be optimised. The final method 'cartCleanUp' needs reworking it fails to cleanup packs that are prime numbers, my research indicates that Subset Sum solution is required instead.
 
-StoreFront - HomeScreen - missing background image, carousel isn't full implemented it use placeholder array to display images that should be pulled from the database. Same with the decription and sweet title but these are located in the database.
+StoreFront - HomeScreen - missing background image, carousel isn't full implemented it use placeholder array to display images that should be pulled from the database. Same with the description and sweet title but these are located in the database.
 
-Backend - AdminView - I have hidden a 'Load Mock Data' and 'Clear Cart' button in a drawer that can only accessed from this view, simply swipe from left hand side of the screen to the right. There an odd glitch I haven't figured out the cause of yet, if you press the 'Load Mock Data' button only the 5000 pack appears however if you leave the page and re-enter the remainder of the list is populated. The EDIT button has yet to be implemented, the 'Add Pack' button works however you will not be able to save the new pack.
+Backend - AdminView - I have hidden a 'Load Mock Data' and 'Clear Cart' button in a drawer that can only accessed from this view, simply swipe from left hand side of the screen to the right. The EDIT button has yet to be implemented, the 'Add Pack' button works however you will not be able to save the new pack.
 
 Assets - Assets haven't been intergrated fully as recommended for Android and IOS devices.
 
