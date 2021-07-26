@@ -18,11 +18,11 @@ void main() {
       packMap = SplayTreeMap();
     });
     // tearDown(() {
-    //   packMap = SplayTreeMap();
+    //   packMap = SplayTreeMap(); // tear down before new test
     // });
 
     void cartCleanUp(SplayTreeMap<int, int> sMap) {
-      // // there are scenarios were the store uses multiple packs when the order could be fulfiled with a larger pack this only happens with the smallest pack size.
+      // WIP algo
       // var firstKey = sMap.firstKey(); // find smallest pack size
       // var secondKey =
       //     sMap.firstKeyAfter(sMap.firstKey()); // find second smallest pack size
@@ -289,11 +289,11 @@ void main() {
           amountSum);
     });
 
-    test('should fulfil order for 751 sweets', () {
+    test('should fulfil order for 9752 sweets', () {
       List<int> packArray = [2000, 500, 1000, 250, 5000];
 
       packArray.forEach((element) => packMap[element] = 0);
-      int amountSum = 751;
+      int amountSum = 9752;
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);

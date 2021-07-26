@@ -12,7 +12,7 @@ I took this challenge as an opportunity to learn Bloc state management pattern a
 
 Unit Test partially written - The only unit test written is for the algorithm in your terminal run 'flutter test test'.  Test are missing their comparison to their expected outcome. Unit tests for button presses are next on the list of things to do.
 
-Calculation Algorithm has been through a few re-writes but it can still be optimised. The final method 'cartCleanUp' needs reworking it fails to cleanup packs that are prime numbers, my research indicates that Subset Sum solution is required instead.
+Calculation Algorithm has been through a few re-writes but it can still be optimised. The final method 'cartCleanUp' needs reworking it fails to cleanup packs properly and will in certain instances over order. For example using the mock pack size data as seen in the challenge description with an order amount of 9752 sweets will over order by 1000. My research indicates that Subset Sum solution is required instead.
 
 StoreFront - HomeScreen - missing background image, carousel isn't full implemented it use placeholder array to display images that should be pulled from the database. Same with the description and sweet title but these are located in the database.
 
