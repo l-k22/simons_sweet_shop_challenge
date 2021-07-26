@@ -42,27 +42,24 @@ void main() {
       sMap.forEach((fKey, fValue) {
         sMap.forEach((sKey, sValue) {
           // compare each <k,v> pair to one another.
+          // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
+              int divPack = (sKey ~/ fKey);
           if (fKey != sKey) {
-            if (sKey % fKey == 0) {
-              // use modulo operator to find smaller packs that multiples can tally up into larger packs.
-              if (sMap[fKey]! > 1) {
-                // check if pack contains more than one order.
-                // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
-                int divPack = (sKey ~/ fKey);
-                int divPackTotal = (fValue ~/ divPack);
-                // update packs with new amounts
-                sMap.update(sKey, (value) => value + 1);
-                // remove order from small pack
-                sMap.update(fKey, (value) => value - value);
+            // use modulo operator to find smaller packs that multiples can tally up into larger packs.
+            if (sMap[fKey]! > 1 && divPack == 2) {
+              // check if pack contains more than one order.
+              // update packs with new amounts
+              sMap.update(sKey, (value) => value + 1);
+              // remove order from small pack
+              sMap.update(fKey, (value) => value - 2);
 
-                print(
-                    ' ZZZ sky % fkey == 1 : $sKey % $fKey = ${(sKey ~/ fKey)}'); // truncate down
-                //   // update value of second element with that of the first
-                // sMap.update(sKey, (value) => );
-                // // remove the original value
-                // sMap.update(fKey, (value) => );
-                cartCleanUp(sMap); // recursive call
-              }
+              print(
+                  ' ZZZ sky % fkey == 1 : $sKey % $fKey = ${(sKey ~/ fKey)}'); // truncate down
+              //   // update value of second element with that of the first
+              // sMap.update(sKey, (value) => );
+              // // remove the original value
+              // sMap.update(fKey, (value) => );
+              cartCleanUp(sMap); // recursive call
             }
           }
         });
@@ -283,10 +280,20 @@ void main() {
     });
 
     test('should fulfil order of prime numbered packs for 199 sweets', () {
-      List<int> packArray = [5, 2, 7, 41, 3, 101, 59];
+      List<int> packArray = [5, 2, 7, 41, 3, 59];
 
       packArray.forEach((element) => packMap[element] = 0);
       int amountSum = 199;
+
+      cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
+          amountSum);
+    });
+
+    test('should fulfil order for 751 sweets', () {
+      List<int> packArray = [2000, 500, 1000, 250, 5000];
+
+      packArray.forEach((element) => packMap[element] = 0);
+      int amountSum = 751;
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);

@@ -64,23 +64,21 @@ class PackCalculator {
           packArray.where((pack) => (pack >= amount)).toList()..sort();
 
       // get last element of the array of smaller packs otherwise return -1
+      // Dart null check means we have to return a value
       var nearestPackLE = nearestPackSizeLessOrEqualTo
           .lastWhere((element) => true, orElse: () => -1);
       var nearestPackGE = nearestPackSizeGreaterOrEqualTo
           .firstWhere((element) => true, orElse: () => -1);
 
-      print('xx <= nearestPackLE $nearestPackLE');
-      print('xx >= nearestPackGE $nearestPackGE');
-
       // find the difference in sweets between largest of the smallest and order amount
-      if (nearestPackLE > 0) {
+      if (nearestPackLE > -1) {
         packSizeDifferenceLessOrEqualTo = amount - nearestPackLE;
       } else {
         packSizeDifferenceLessOrEqualTo = null;
       }
 
       // find the difference in sweets between smallest of the largest and order amount
-      if (nearestPackGE > 0) {
+      if (nearestPackGE > -1) {
         packSizeDifferenceGreaterOrEqualTo = nearestPackGE - amount;
       } else {
         packSizeDifferenceGreaterOrEqualTo = null;
@@ -89,13 +87,9 @@ class PackCalculator {
       // if the largest of the smaller packs is not null whilst smallest of the largest is null
       if (packSizeDifferenceLessOrEqualTo != null) {
         if (packSizeDifferenceGreaterOrEqualTo == null) {
-          print(
-              '\\ $packSizeDifferenceLessOrEqualTo < $packSizeDifferenceGreaterOrEqualTo');
           nLargestPackSize = nearestPackSizeLessOrEqualTo.last;
         } else if (packSizeDifferenceLessOrEqualTo <
             packSizeDifferenceGreaterOrEqualTo) {
-          print(
-              '\\ else if $packSizeDifferenceLessOrEqualTo < $packSizeDifferenceGreaterOrEqualTo');
           nLargestPackSize = nearestPackSizeLessOrEqualTo.last;
         }
       }
@@ -104,13 +98,9 @@ class PackCalculator {
       if (packSizeDifferenceGreaterOrEqualTo != null) {
         if (packSizeDifferenceLessOrEqualTo == null) {
           nLargestPackSize = nearestPackSizeGreaterOrEqualTo.first;
-          print(
-              '/ if $packSizeDifferenceLessOrEqualTo > $packSizeDifferenceGreaterOrEqualTo');
         } else if (packSizeDifferenceGreaterOrEqualTo <=
             packSizeDifferenceLessOrEqualTo) {
           // if difference is less or equal to that of the smaller pack size then we should opt for the larger pack size!
-          print(
-              '/ else if $packSizeDifferenceLessOrEqualTo > $packSizeDifferenceGreaterOrEqualTo');
           nLargestPackSize = nearestPackSizeLessOrEqualTo.last;
         }
       }
@@ -132,6 +122,7 @@ class PackCalculator {
 
       if (remainingAmount > 0) {
         // if there is even 1 sweet leftover we need to add another pack
+
         cartCalc(
             amount: remainingAmount,
             originalAmount: originalAmount,
@@ -140,16 +131,18 @@ class PackCalculator {
       } else {
         // there are scenarios were the store uses multiple packs when the order could be fulfiled with a larger pack this only happens with the smallest pack size.
         await cartCleanUp(packMap);
+
         print('>>> set $packMap');
-        packMap.removeWhere((key, value) => value == 0);
+
+        packMap.removeWhere((key, value) => value == 0); // remove empty packs
         print(
-            '=***= Order for $originalAmount sweets has been fulfilled $packMap =***=');
+            '=* * *= Order for $originalAmount sweets has been fulfilled $packMap =* * *=');
 
         try {
           var db = DatabaseHelper();
           OrderModel cartOrder =
               OrderModel(amount: originalAmount, packs: packMap);
-          print('O R D E R  $cartOrder: ${cartOrder.packs}');
+          print('saving $cartOrder: ${cartOrder.packs}');
 
           await db.addOrderToCart(cartOrder);
         } catch (e) {
@@ -163,48 +156,27 @@ class PackCalculator {
 
   Future<void> cartCleanUp(SplayTreeMap<int, int> sMap) async {
     /*  WORK IN PROGRESS! */
-    /* there are scenarios were the store uses multiple packs when the order could be fulfiled with a larger pack this only happens with the smallest pack size. */
+    /* there are scenarios were the store uses multiple packs when the order 
+       could be fulfiled with a larger pack this only happens with the smallest
+       pack size. */
     /* Need more research into Subset Sum algorithms */
 
-    //TODO replacement cleanup method to handle prime numbers
-
-    // hacky fix for first two elements
-    var firstKey = sMap.firstKey(); // find smallest pack size
-    var secondKey = sMap
-        .firstKeyAfter(sMap.firstKey() ?? 0); // find second smallest pack size
-
-    if (firstKey != null && secondKey != null) {
-      if (secondKey % firstKey == 0) {
-        if (sMap[firstKey] == 2) {
-          // update value of second element with that of the first
-          sMap.update(secondKey, (value) => value + 1);
-          // remove the original value
-          sMap.update(firstKey, (value) => value - value);
-        }
-      }
-    }
-
-    /* 
-    // WIP
-    sMap.forEach((fKey, fValue) {
-      sMap.forEach((sKey, sValue) {
-        // compare each <k,v> pair to one another.
+    // fKey, sKey are our pack sizes, fVal sVal
+    sMap.forEach((fKey, fVal) {
+      sMap.forEach((sKey, sval) async {
+        // tilda symbol truncates remainder down to nearest whole number towards zero
+        int divPacks = sKey ~/ fKey; 
         if (fKey != sKey) {
-          if (sKey % fKey == 0) {
-            // use modulo operator to find smaller packs that multiples can tally up into larger packs.
-            if (sMap[fKey]! > 1) {
-              // check if pack contains more than one order.
-              // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
-              // update packs with new amounts
-              sMap.update(sKey, (value) => value + 1);
-              // remove order from small pack
-              sMap.update(fKey, (value) => value - value);
-              cartCleanUp(sMap); // recursive call
-            }
+          // if the value of first key is greater than 1 and key is divisible
+          // by next key by 2 then update map until first key has 1 or 0 left
+          if (fVal > 1 && divPacks == 2) {
+            print('divPackKeys $sKey ~/ $fKey  = $divPacks');
+            sMap.update(sKey, (value) => value + 1);
+            sMap.update(fKey, (value) => value - 2);
+            await cartCleanUp(sMap); // recursive call
           }
         }
       });
-    }); */
-    // recursive call
+    });
   }
 }
