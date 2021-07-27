@@ -43,7 +43,7 @@ void main() {
         sMap.forEach((sKey, sValue) {
           // compare each <k,v> pair to one another.
           // ~ operater truncates any remainder rounds it down towards zero. Should a whole since we've already checked
-              int divPack = (sKey ~/ fKey);
+          int divPack = (sKey ~/ fKey);
           if (fKey != sKey) {
             // use modulo operator to find smaller packs that multiples can tally up into larger packs.
             if (sMap[fKey]! > 1 && divPack == 2) {
@@ -165,7 +165,7 @@ void main() {
           print('>>> set ${packMap.toString()}');
           packMap.removeWhere((key, value) => value == 0);
           print(
-              '= *** = Order for ${originalOrder.toString()} sweets has been fulfilled ${packMap.toString()} = *** =');
+              '==* * *== Order for ${originalOrder.toString()} sweets has been fulfilled ${packMap.toString()} ==* * *==');
         }
       } else {
         print("Sweet Pack Array Empty! Simon's Sweet Shop Is Out of Stock!");
@@ -187,6 +187,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum); // call our shopping cart calculator with the sorted array of packs with the customer's order amount
+
+      expect(packMap, {250: 1, 500: 1});
     });
 
     test('should fulfil order for 1 sweet', () {
@@ -197,6 +199,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {250: 1});
     });
 
     test('should fulfil order for 250 sweets', () {
@@ -207,6 +211,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {250: 1});
     });
 
     test('should fulfil order for 251 sweets', () {
@@ -217,6 +223,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {500: 1});
     });
 
     test('should fulfil order for 501 sweets', () {
@@ -227,6 +235,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {250: 1, 500: 1});
     });
 
     test('should fulfil order for 12001 sweets', () {
@@ -237,6 +247,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {250: 1, 2000: 1, 5000: 2});
     });
 
     test('should fulfil order for 750 sweets', () {
@@ -247,6 +259,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {250: 1, 500: 1});
     });
 
     test('should fulfil order for 749 sweets', () {
@@ -257,6 +271,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {250: 1, 500: 1});
     });
 
     test('should fulfil order for 100 sweets', () {
@@ -267,6 +283,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {5: 20});
     });
 
     test('should fulfil order of prime numbered packs for 87 sweets', () {
@@ -277,6 +295,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {41: 2, 5: 1});
     });
 
     test('should fulfil order of prime numbered packs for 199 sweets', () {
@@ -287,6 +307,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {});
     });
 
     test('should fulfil order for 9752 sweets', () {
@@ -297,6 +319,8 @@ void main() {
 
       cartCalc(packArray..sort((curr, next) => curr.compareTo(next)), amountSum,
           amountSum);
+
+      expect(packMap, {5000: 2});
     });
   }); // end of current test group
 }
