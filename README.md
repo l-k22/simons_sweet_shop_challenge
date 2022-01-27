@@ -18,7 +18,7 @@ The solution should also be flexible enough to add orremove pack sizes as well a
 Definitions 
 The table below displays correct and incorrect outcomes of a few example orders. You can use this as a guide to test your solution. 
 
-Sweets ordered        Correct solution        Incorrect solution/s
+Sweets ordered        Correct solution        Incorrect solution
 1                     1 x 250                 1 x 500 = too many sweets
 ------------------------------------------------------------------------
 250                   1 x 250                 1 x 500 = too many sweets
