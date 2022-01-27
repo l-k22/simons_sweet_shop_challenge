@@ -18,20 +18,16 @@ The solution should also be flexible enough to add orremove pack sizes as well a
 Definitions 
 The table below displays correct and incorrect outcomes of a few example orders. You can use this as a guide to test your solution. 
 
-Sweets ordered        Correct solution        Incorrect solution
-1                     1 x 250                 1 x 500 = too many sweets
-------------------------------------------------------------------------
-250                   1 x 250                 1 x 500 = too many sweets
-------------------------------------------------------------------------
-251                   1 x 500                 2 x 250 = can send less packs with available pack sizes
-------------------------------------------------------------------------
-501                   1 x 500                 1 x 1,000 = too many sweets OR
-                      1 x 250                 3 x 250 = can send less packs with available pack sizes
-------------------------------------------------------------------------
-12,001                2 x 5,000               3 x 5,000 = too many sweets
-                      1 x 2,000 
-                      1 x 250
-------------------------------------------------------------------------
+| Sweets ordered | Correct solution | Incorrect solution
+-----------------| ----------------- | -----------------|
+| 1 | 1 x 250 | 1 x 500 = too many sweets |
+| 250 | 1 x 250 |  1 x 500 = too many sweets |
+| 251 | 1 x 500 | 2 x 250 = can send less packs with available pack sizes|
+| 501 | 1 x 500 | 1 x 1,000 = too many sweets |
+| | 1 x 250 | OR 3 x 250 = can send less packs with available pack sizes |
+| 12,001 | 2 x 5,000 | 3 x 5,000 = too many sweets  |
+| | 1 x 2,000 |
+| | 1 x 250 |
 
 Please remember that this is just a guide for some initial testing of your solution. Changing pack sizes may throw up different test cases and challenges thatthis table does not address. 
 
