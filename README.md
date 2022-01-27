@@ -1,6 +1,6 @@
 # simons_sweet_shop_challenge
 
-PLEASE SWITCH TO THE DEVELOP BRANCH IF YOU HAVE NOT YET
+**==PLEASE SWITCH TO THE DEVELOP BRANCH IF YOU HAVE NOT YET==**
 
 ## The Challenge
 
